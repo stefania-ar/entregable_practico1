@@ -1,16 +1,14 @@
 document.addEventListener("DOMContentLoaded", function () {
 
     const can= document.getElementById("draw");
-    can.height= window.innerHeight;
-    can.width= window.innerWidth;
+    can.height= document.documentElement.clientHeight; 
+    can.width= document.documentElement.clientWidth ;
 
     /** @type {CanvasRenderingContext2D} */
     const ctx= can.getContext("2d");
 
-
     //variables
     let painting= false;
-
 
     function startPosition() {
         painting=true;
