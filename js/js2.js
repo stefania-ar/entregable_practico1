@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
     //variables
     let painting= false;
 
-    function startPosition() {
+    function startPosition(e) {
         painting=true;
         draw(e);
     }
@@ -22,9 +22,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function draw(e) {
         if(!painting) return; //no hace nada si no pinta
-        ctx.lineWidth =6;
+        ctx.lineWidth = 24;
         ctx.lineCap = "round";
-        
+        ctx.strokeStyle  ='#801515';
+
         ctx.lineTo(e.clientX, e.clientY);
         ctx.stroke();
         ctx.beginPath();

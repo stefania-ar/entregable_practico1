@@ -5,10 +5,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="js2.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/js2.js"></script>
+    <script src="js/imageFilter.js"></script>
 </head>
 <body>
-    <canvas id="draw" ></canvas>
-    <button>pincel</button>
+    <div>
+        <canvas id="draw" ></canvas>
+    </div>
+    <div>
+        <button>pincel</button>
+    </div>
+    <div>
+        <input id="imageFile" type="file" name="adjunto" accept=".jpg,.jpeg,.png" multiple />
+        <button id="btnOrigin">original</button>
+		<button id="btnGreyFilter">Filtro gris</button>
+		<button id="btnSepiaFilter">Filtro sepia</button>
+		<button id="btnInvertFilter">Filtro invertir</button>
+		<button id="btnBinarizationFilter">Filtro binarizacion</button>
+        <button id="btnBlurFilter">Filtro blur</button>
+        <p>Saturacion</p>
+		<input type="range" min="0" max="100" id="range" value="0">
+		<button id="btnDownload">Descargar</button>
+    </div>
 </body>
 </html>
