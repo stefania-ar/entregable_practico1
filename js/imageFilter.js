@@ -1,5 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
 
+    let range = document.getElementById("range");
+    range.value = avgSaturation();
+    //range.value = 50;
+    let sepia = false;
     var canvas = document.getElementById("draw");
 
     /** @type {CanvasRenderingContext2D} */
@@ -13,18 +17,6 @@ document.addEventListener("DOMContentLoaded", function () {
     image.onload = function(){
         myDrawImageMethod(this, width, height);
     }
-
-    let range = document.getElementById("range");
-
-    document.getElementById("imageFile").addEventListener('change',(e) => {
-        if(e.target.files[0] != null){//pregunta si se seleciono alguna imagen
-            //se seta a blanco ya que si cargan una imagen png,
-            //el fondo se sigue viendo la imagen anterior.
-            resetWhite(255, 255, 255);
-            const file = e.target.files[0];
-            readImage(file);
-        }
-    });
 
     function readImage(file) {
         const reader = new FileReader();
@@ -57,43 +49,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         return s/div;
     }
-
-    range.value = avgSaturation();
-        //range.value = 50;
-        let sepia = false;
-        document.getElementById("btnOrigin").addEventListener("click",function(){
-            sepia = false;
-            range.value = avgSaturation();
-            myDrawImageMethod(image, width, height);
-        });
-        document.getElementById("btnGreyFilter").addEventListener("click",function(){
-            sepia = false;
-            grey(width, height);
-        });
-        document.getElementById("btnSepiaFilter").addEventListener("click",function(){
-            if(sepia == false){
-                sepiaFilter(width, height);
-                sepia = true;
-            }
-        });
-        document.getElementById("btnInvertFilter").addEventListener("click",function(){
-            sepia = false;
-            invert(width, height);
-        });
-        document.getElementById("btnBinarizationFilter").addEventListener("click",function(){
-            sepia = false;
-            binarization(width, height);
-        });
-        document.getElementById("btnBlurFilter").addEventListener("click",function(){
-            sepia = false;
-            blur(width, height);
-        });
-       /*  document.getElementById("btnfiltroSaturar").addEventListener("click",function(){
-            saturar(image, widthImage, heightImage);
-        });*/
-        range.addEventListener("change",function(){
-            saturar(width, height, range.value);
-        });
 
     function myDrawImageMethod(image, width, height){
         //calcula el margen que debe disminuir o aumentar la imagen, para que entre en el ancho y alto del canvas
@@ -328,16 +283,84 @@ document.addEventListener("DOMContentLoaded", function () {
         ctx.putImageData(canvasDataCopy, 0, 0);
     }
 
-    document.getElementById("btnDownload").addEventListener("click",function(){
-        download();
-    });
-
     function download(){
+        //creo
         let link = document.createElement('a');
         link.download = "CanvasImage.jpg";
-        link.href = canvas.toDataURL();
+        //con este if se conprueba que haya una imagen.
+        if(image.width > 0 && image.height > 0){
+            //creo el canvas donde se va a escalar el contenido del canvas original.
+            var newCanvas = document.createElement('canvas');
+            //le asigno el mismo tamaño que el canvas original.
+            newCanvas.width = width;
+            newCanvas.height = height;
+            //escalo el canvas creado y le inserto el contenido del canvas original.
+            scaleContent(width, height, newCanvas);
+            link.href = newCanvas.toDataURL();
+        }else{
+            link.href = canvas.toDataURL();
+        }
         link.click();
     }
 
+    function scaleContent(width, height, newCanvas){
+        const newCtx = newCanvas.getContext("2d");
+        //calcula cuanto debe medir el canvas para contener la imagen con sus dimenciones originales.
+        let hRatio = image.width / width;
+        let vRatio = image.height / height;
+        //se queda con el mayor de las proporciones calculadas, para no perder informacion.
+        let ratio  = Math.max ( hRatio, vRatio );
+        //Al tamaño del canvas lo multiplico, asi esta adapta su tamaño adecuado.
+        newCanvas.width = newCanvas.width*ratio;
+        newCanvas.height= newCanvas.height*ratio;
+        //pinto el contenido con el canvas original y con las nuevas dimenciones.
+        newCtx.drawImage(canvas,0,0,newCanvas.width, newCanvas.height);
+    }
+
+    document.getElementById("imageFile").addEventListener('change',(e) => {
+        if(e.target.files[0] != null){//pregunta si se seleciono alguna imagen
+            //se seta a blanco ya que si cargan una imagen png,
+            //el fondo se sigue viendo la imagen anterior.
+            resetWhite(255, 255, 255);
+            const file = e.target.files[0];
+            readImage(file);
+        }
+    });
+    document.getElementById("btnOrigin").addEventListener("click",function(){
+        sepia = false;
+        range.value = avgSaturation();
+        myDrawImageMethod(image, width, height);
+    });
+    document.getElementById("btnGreyFilter").addEventListener("click",function(){
+        sepia = false;
+        grey(width, height);
+    });
+    document.getElementById("btnSepiaFilter").addEventListener("click",function(){
+        if(sepia == false){
+            sepiaFilter(width, height);
+            sepia = true;
+        }
+    });
+    document.getElementById("btnInvertFilter").addEventListener("click",function(){
+        sepia = false;
+        invert(width, height);
+    });
+    document.getElementById("btnBinarizationFilter").addEventListener("click",function(){
+        sepia = false;
+        binarization(width, height);
+    });
+    document.getElementById("btnBlurFilter").addEventListener("click",function(){
+        sepia = false;
+        blur(width, height);
+    });
+   /*  document.getElementById("btnfiltroSaturar").addEventListener("click",function(){
+        saturar(image, widthImage, heightImage);
+    });*/
+    range.addEventListener("change",function(){
+        saturar(width, height, range.value);
+    });
+    document.getElementById("btnDownload").addEventListener("click",function(){
+        download();
+    });
 
 });
