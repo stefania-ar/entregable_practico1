@@ -9,14 +9,14 @@ document.addEventListener("DOMContentLoaded", function () {
     /** @type {CanvasRenderingContext2D} */
     const ctx= can.getContext("2d");
 
-    
+
     //Declaramos las variables que necesitamos. En este caso seteamos en false la variable painting que cambia 
     //de valores booleanos dependiendo si estamos dibujando con nuestro mouse o no. Inicialmente se setea en false ya que
     //no comenzamos dibujando
     
     //variables
     let painting= false;
-
+    
     function startPosition(e) {
         painting=true;
         draw(e);
@@ -27,11 +27,28 @@ document.addEventListener("DOMContentLoaded", function () {
         ctx.beginPath();
     }
 
+    //Elegir grosor del pincel
+    const input= document.getElementById("size");
+    
+    function getSize(){
+        let size= input.value;
+        let sizeNum= parseInt(10, size);
+        console.log(sizeNum);
+        return sizeNum;
+    }
+    let sizeNum= getSize();
+    
+
     //Este método es el que permite dibujar, utiliza los métodos que provee la API del contexto. Se utilizan además
     //las coordenadas del canvas del cliente (browser)
     function draw(e) {
         if(!painting) return; //no hace nada si no pinta
-        ctx.lineWidth = 24;
+        //console.log(sizeNum);
+        if(sizeNum>=1 && sizeNum<=50){
+            ctx.lineWidth = sizeNum;
+        }else{
+            ctx.lineWidth = 10;
+        }
         ctx.lineCap = "round";
         ctx.strokeStyle  ='#801515';
 
@@ -45,5 +62,6 @@ document.addEventListener("DOMContentLoaded", function () {
     can.addEventListener("mousedown", startPosition); //Cuando hacemos click, nos tiene que permitir dibujar, aunque sea un punto
     can.addEventListener("mouseup", finishedPosition); //Este método permite finalizar el trazado el líneas
     can.addEventListener("mousemove", draw); //Cuando se mueve el mouse se activa el método para dibujar en el canvas
+    input.addEventListener("input", getSize);
 
 });
