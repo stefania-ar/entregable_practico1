@@ -8,25 +8,53 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="js/js2.js"></script>
     <script src="js/imageFilter.js"></script>
+    <script src="https://kit.fontawesome.com/dae53e07cf.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div>
-        <canvas id="draw" ></canvas>
+    <header>
+        <h1 class="header_h1">editor gráfico</h1>
+    </header>
+    <div class="div_father">
+        <div class="div_canvas">
+            <canvas class="canvas" id="draw" width="800" height="550"></canvas>
+        </div>
+        <div class="div_contain_menu">
+            <div class="div_file_up_download">
+                <div class="div_up_download">
+                    <p class="p_seccion min">subir imagen</p>
+                    <label class="fa fa-upload label_file" for="imageFile"></label><br>
+                    <input class="input_file" id="imageFile" type="file" name="adjunto" accept=".jpg,.jpeg,.png" multiple />
+                </div>
+                <div class="div_up_download">
+                    <p class="p_seccion min">descarga lienzo</p>
+                    <button id="btnDownload" class="fa fa-download btn_download"></button>
+                </div>
+            </div>
+            <div class="div_btn_painting_elements">
+                <p class="p_seccion">herramientas de dibujo</p>
+                <button  class="fas fa-paint-brush btn_tool"></button>
+                <input  type="color">
+                <button  class="fa fa-eraser btn_tool"></button>
+                <button  class="fa fa-broom btn_tool"></button>
+                <p class="p_seccion p_title_size_pencil">tamaño de lapiz</p>
+                <input type="range" min="0" max="100" id="range_sice_pencil" value="0">
+            </div>
+            <div class="div_btn_filters">
+                <p class="p_seccion">filtros</p>
+                <button class="btn_filter" id="btnOrigin">original</button>
+                <button class="btn_filter" id="btnGreyFilter">gris</button>
+                <button class="btn_filter"id="btnSepiaFilter">sepia</button>
+                <button class="btn_filter" id="btnInvertFilter">invertir</button>
+                <button class="btn_filter" id="btnBinarizationFilter">binarizacion</button>
+                <button class="btn_filter" id="btnBlurFilter">blur</button>
+                <p class="p_saturation">Saturacion</p>
+                <input class="input_range" type="range" min="0" max="100" id="range" value="0">
+            </div>
+        </div>
     </div>
-    <div>
-        <button>pincel</button>
-    </div>
-    <div>
-        <input id="imageFile" type="file" name="adjunto" accept=".jpg,.jpeg,.png" multiple />
-        <button id="btnOrigin">original</button>
-		<button id="btnGreyFilter">Filtro gris</button>
-		<button id="btnSepiaFilter">Filtro sepia</button>
-		<button id="btnInvertFilter">Filtro invertir</button>
-		<button id="btnBinarizationFilter">Filtro binarizacion</button>
-        <button id="btnBlurFilter">Filtro blur</button>
-        <p>Saturacion</p>
-		<input type="range" min="0" max="100" id="range" value="0">
-		<button id="btnDownload">Descargar</button>
-    </div>
+    <footer>
+        <p class="p_footer">developed by</p>
+        <p>Caseres Marina & Ferrante Stefania</p>
+    </footer>
 </body>
 </html>

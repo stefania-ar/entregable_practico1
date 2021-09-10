@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
 
     let range = document.getElementById("range");
-    range.value = avgSaturation();
     //range.value = 50;
     let sepia = false;
     var canvas = document.getElementById("draw");
@@ -15,6 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var image = new Image();
     image.src= "";
     image.onload = function(){
+        range.value = avgSaturation();
         myDrawImageMethod(this, width, height);
     }
 
