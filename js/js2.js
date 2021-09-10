@@ -2,18 +2,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //Buscamos con el id al canvas desde el documento para editarlo desde javascript
     const can= document.getElementById("draw");
-    can.height= document.documentElement.clientHeight; 
-    can.width= document.documentElement.clientWidth ;
+    //can.height= document.documentElement.clientHeight;
+    //can.width= document.documentElement.clientWidth ;
 
     //Buscamos su contexto y lo guardamos en una variable para poder crear nuestros métodos con los cuales dibujar
     /** @type {CanvasRenderingContext2D} */
     const ctx= can.getContext("2d");
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4dd1283cee20950573346a9776cce73ca427ef12
     //Declaramos las variables que necesitamos. En este caso seteamos en false la variable painting que cambia 
     //de valores booleanos dependiendo si estamos dibujando con nuestro mouse o no. Inicialmente se setea en false ya que
     //no comenzamos dibujando
-    
+
     //variables
     let painting= false;
     
