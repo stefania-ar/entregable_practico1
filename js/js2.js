@@ -4,6 +4,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const can = document.getElementById("draw");
     let brush = document.getElementById("brush");
     let eraser = document.getElementById("eraser");
+    const cleaner =document.getElementById("cleaner");
+    const widthLine = document.getElementById("range_sice_pencil");
 
     //Buscamos su contexto y lo guardamos en una variable para poder crear nuestros métodos con los cuales dibujar
     /** @type {CanvasRenderingContext2D} */
@@ -15,6 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //variables
     let painting = false;
+    let eraserb = false;
 
     function startPosition(e) {
         painting = true;
@@ -36,51 +39,59 @@ document.addEventListener("DOMContentLoaded", function () {
         return sizeNum;
     }
     let sizeNum = getSize();
-
-
+    
+    
     //Este método es el que permite dibujar, utiliza los métodos que provee la API del contexto. Se utilizan además
     //las coordenadas del canvas del cliente (browser)
     function draw(e) {
         if (!painting) return; //no hace nada si no pinta
-        ctx.lineWidth = 10;
-        let color = document.getElementById("color").value;
+        ctx.lineWidth = widthLine.value;
+        let color;
+
+        if(eraserb){
+            color= "#FFFFFF";
+        }else{
+            color = document.getElementById("color").value;
+        }
         ctx.lineCap = "round";
         ctx.strokeStyle = color;
 
-        ctx.lineTo(e.clientX, e.clientY);
+        ctx.lineTo(e.clientX -60, e.clientY -70);
         ctx.stroke();
         ctx.beginPath();
-        ctx.moveTo(e.clientX, e.clientY);
+        ctx.moveTo(e.clientX -60, e.clientY-70);
     }
-
-    /**function erase(e) {
-        if (!painting) return; //no hace nada si no pinta
-        ctx.strokeStyle = "white";
-        ctx.lineWidth = 10;
-        ctx.lineCap = "round";
-
-        ctx.lineTo(e.clientX, e.clientY);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.moveTo(e.clientX, e.clientY);
-    }**/
 
     //EventListeners
     brush.addEventListener("click", function () {
         console.log("hola");
+        eraserb= false;
         can.addEventListener("mousedown", startPosition); //Cuando hacemos click, nos tiene que permitir dibujar, aunque sea un punto
         can.addEventListener("mouseup", finishedPosition); //Este método permite finalizar el trazado el líneas
         can.addEventListener("mousemove", draw); //Cuando se mueve el mouse se activa el método para dibujar en el canvas
-        //input.addEventListener("input", getSize);
     });
 
-    /**eraser.addEventListener("click", function () {
+    eraser.addEventListener("click", function () {
         console.log("goma");
+        eraserb=true;
         can.addEventListener("mousedown", startPosition); //Cuando hacemos click, nos tiene que permitir dibujar, aunque sea un punto
         can.addEventListener("mouseup", finishedPosition); //Este método permite finalizar el trazado el líneas
-        can.addEventListener("mousemove", erase);
-    });**/
-    //}
+        can.addEventListener("mousemove", draw);
+    });
 
+    
+    function resetWhite(){
+        console.log("borrar");
+        var canvasData = ctx.getImageData(0, 0, can.width, can.height);
+        var data = canvasData.data;
+        for (let i=0; i<data.length; i+=4){
+            data[i] = 255;
+            data[i+1]= 255;
+            data[i+2]=255;
+        }
+        ctx.putImageData(canvasData, 0, 0);
+    };
+    
+    cleaner.addEventListener("click", resetWhite);
 
 });
