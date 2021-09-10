@@ -283,6 +283,67 @@ document.addEventListener("DOMContentLoaded", function () {
         ctx.putImageData(canvasDataCopy, 0, 0);
     }
 
+    function sobel(width, height){
+        grey(width, height);
+        var canvasData = ctx.getImageData(0, 0,  width, height);
+        var canvasDataCopy = ctx.getImageData(0, 0,  width, height);
+        var data = canvasData.data;
+        var dataCopy= canvasDataCopy.data;
+
+        let k1X = [ [-1, 0, 1],
+                    [-2, 0, 2],
+                    [-1, 0, 1]];
+
+        let k1Y = [ [-1, -2, -1],
+                    [0, 0, 0],
+                    [1, 2, 1]];
+
+        let w = width;
+        let h = height;
+        for (let x = 0; x < w; x++) {
+            for (let y = 0; y < h; y++) {
+                let ul = ((x-1+w)%w + w*((y-1+h)%h))*4; // UPPER LEFT
+                let uc = ((x-0+w)%w + w*((y-1+h)%h))*4; // UPPER CENTER
+                let ur = ((x+1+w)%w + w*((y-1+h)%h))*4; // UPPER RIGHT
+                let ml = ((x-1+w)%w + w*((y+0+h)%h))*4; // LEFT
+                let mc = ((x-0+w)%w + w*((y+0+h)%h))*4; // CENTER PIXEL
+                let mr = ((x+1+w)%w + w*((y+0+h)%h))*4; // RIGHT
+                let ll = ((x-1+w)%w + w*((y+1+h)%h))*4; // LOWER LEFT
+                let lc = ((x-0+w)%w + w*((y+1+h)%h))*4; // LOWER CENTER
+                let lr = ((x+1+w)%w + w*((y+1+h)%h))*4; // LOWER RIGHT
+
+                let r0x = data[ul]*k1X[0][0]; // upper left
+                let r1x = data[uc]*k1X[0][1]; // upper mid
+                let r2x = data[ur]*k1X[0][2]; // upper right
+                let r3x = data[ml]*k1X[1][0]; // left
+                let r4x = data[mc]*k1X[1][1]; // center pixel
+                let r5x = data[mr]*k1X[1][2]; // right
+                let r6x = data[ll]*k1X[2][0]; // lower left
+                let r7x = data[lc]*k1X[2][1]; // lower mid
+                let r8x = data[lr]*k1X[2][2]; // lower right
+                let pixelX = r0x+r1x+r2x+r3x+r4x+r5x+r6x+r7x+r8x;
+
+                let r0y = data[ul]*k1Y[0][0]; // upper left
+                let r1y = data[uc]*k1Y[0][1]; // upper mid
+                let r2y = data[ur]*k1Y[0][2]; // upper right
+                let r3y = data[ml]*k1Y[1][0]; // left
+                let r4y = data[mc]*k1Y[1][1]; // center pixel
+                let r5y = data[mr]*k1Y[1][2]; // right
+                let r6y = data[ll]*k1Y[2][0]; // lower left
+                let r7y = data[lc]*k1Y[2][1]; // lower mid
+                let r8y = data[lr]*k1Y[2][2]; // lower right
+                let pixelY = r0y+r1y+r2y+r3y+r4y+r5y+r6y+r7y+r8y;
+
+                var magnitude = Math.sqrt(Math.pow(pixelX, 2) + Math.pow(pixelY, 2) );
+
+                dataCopy[mc] = magnitude;
+                dataCopy[mc+1] = magnitude;
+                dataCopy[mc+2] = magnitude;
+            }
+        }
+        ctx.putImageData(canvasDataCopy, 0, 0);
+    }
+
     function download(){
         //creo
         let link = document.createElement('a');
@@ -352,6 +413,10 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("btnBlurFilter").addEventListener("click",function(){
         sepia = false;
         blur(width, height);
+    });
+    document.getElementById("btnSobelFilter").addEventListener("click",function(){
+        sepia = false;
+        sobel(width, height);
     });
    /*  document.getElementById("btnfiltroSaturar").addEventListener("click",function(){
         saturar(image, widthImage, heightImage);
