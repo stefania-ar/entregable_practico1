@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let range = document.getElementById("range");
     //range.value = 50;
     let sepia = false;
+    let brightnesss;//es un buleano para luego ver si se suma brillo(true) o se resta(false).
     var canvas = document.getElementById("draw");
 
     /** @type {CanvasRenderingContext2D} */
@@ -126,7 +127,45 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         ctx.putImageData(canvasData, 0, 0);
     }
-
+    function brightness(width, height){
+        var canvasData = ctx.getImageData(0, 0, width, height);
+        var data = canvasData.data;
+        let hsv, rgb, rangeBrightness;
+        let range = 5;
+        for (let i = 0; i < data.length; i += 4) {
+            hsv = rgbHsv(data[i], data[i + 1], data[i + 2]);
+            if(brightnesss){
+                rangeBrightness=hsv[2]+range;
+            }else{
+                rangeBrightness=hsv[2]-range;
+            }
+            rgb = hsvRgb(hsv[0], hsv[1], rangeBrightness);
+            data[i]=rgb[0];
+            data[i + 1]=rgb[1];
+            data[i + 2]= rgb[2];
+        }
+        ctx.putImageData(canvasData, 0, 0);
+    }
+    function tono(width, height, red, green, blue){
+        if(image.width>0 && image.height>0){
+            myDrawImageMethod(image, width, height);
+        }
+        var canvasData = ctx.getImageData(0, 0, width, height);
+        var data = canvasData.data;
+        for (let i = 0; i < data.length; i += 4) {
+            if(red){
+                data[i + 1]= 0;
+                data[i + 2]= 0;
+            }else if(green){
+                data[i]=0;
+                data[i + 2]=0;
+            }else if(blue){
+                data[i]=0;
+                data[i + 1]=0;
+            }
+        }
+        ctx.putImageData(canvasData, 0, 0);
+    }
     function saturar(width, height, range){
         var canvasData = ctx.getImageData(0, 0, width, height);
         var data = canvasData.data;
@@ -284,12 +323,13 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function sobel(width, height){
+        //se pasa el canvas a escala de grises para obtener un resultado mas exacto
         grey(width, height);
         var canvasData = ctx.getImageData(0, 0,  width, height);
         var canvasDataCopy = ctx.getImageData(0, 0,  width, height);
         var data = canvasData.data;
         var dataCopy= canvasDataCopy.data;
-
+        //se busca aplicar un gradiente(cambio abrupto)
         let k1X = [ [-1, 0, 1],
                     [-2, 0, 2],
                     [-1, 0, 1]];
@@ -312,16 +352,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 let lc = ((x-0+w)%w + w*((y+1+h)%h))*4; // LOWER CENTER
                 let lr = ((x+1+w)%w + w*((y+1+h)%h))*4; // LOWER RIGHT
 
-                let r0x = data[ul]*k1X[0][0]; // upper left
-                let r1x = data[uc]*k1X[0][1]; // upper mid
-                let r2x = data[ur]*k1X[0][2]; // upper right
-                let r3x = data[ml]*k1X[1][0]; // left
-                let r4x = data[mc]*k1X[1][1]; // center pixel
-                let r5x = data[mr]*k1X[1][2]; // right
-                let r6x = data[ll]*k1X[2][0]; // lower left
-                let r7x = data[lc]*k1X[2][1]; // lower mid
-                let r8x = data[lr]*k1X[2][2]; // lower right
-                let pixelX = r0x+r1x+r2x+r3x+r4x+r5x+r6x+r7x+r8x;
+                let p0x = data[ul]*k1X[0][0]; // upper left
+                let p1x = data[uc]*k1X[0][1]; // upper mid
+                let p2x = data[ur]*k1X[0][2]; // upper right
+                let p3x = data[ml]*k1X[1][0]; // left
+                let p4x = data[mc]*k1X[1][1]; // center pixel
+                let p5x = data[mr]*k1X[1][2]; // right
+                let p6x = data[ll]*k1X[2][0]; // lower left
+                let p7x = data[lc]*k1X[2][1]; // lower mid
+                let p8x = data[lr]*k1X[2][2]; // lower right
+                let pixelX = p0x+p1x+p2x+p3x+p4x+p5x+p6x+p7x+p8x;
 
                 let r0y = data[ul]*k1Y[0][0]; // upper left
                 let r1y = data[uc]*k1Y[0][1]; // upper mid
@@ -382,7 +422,8 @@ document.addEventListener("DOMContentLoaded", function () {
         if(e.target.files[0] != null){//pregunta si se seleciono alguna imagen
             //se seta a blanco ya que si cargan una imagen png,
             //el fondo se sigue viendo la imagen anterior.
-            resetWhite(255, 255, 255);
+            //resetWhite(255, 255, 255);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
             const file = e.target.files[0];
             readImage(file);
         }
@@ -414,6 +455,16 @@ document.addEventListener("DOMContentLoaded", function () {
         sepia = false;
         blur(width, height);
     });
+    document.getElementById("btnBrightness++Filter").addEventListener("click",function(){
+        sepia = false;
+        brightnesss = true;
+        brightness(width, height);
+    });
+    document.getElementById("btnBrightness--Filter").addEventListener("click",function(){
+        sepia = false;
+        brightnesss = false;
+        brightness(width, height);
+    });
     document.getElementById("btnSobelFilter").addEventListener("click",function(){
         sepia = false;
         sobel(width, height);
@@ -421,8 +472,23 @@ document.addEventListener("DOMContentLoaded", function () {
    /*  document.getElementById("btnfiltroSaturar").addEventListener("click",function(){
         saturar(image, widthImage, heightImage);
     });*/
+    //filtro de saturacion
     range.addEventListener("change",function(){
         saturar(width, height, range.value);
+    });
+
+    /*let rangeTono = document.getElementById("rangeTono");
+    rangeTono.addEventListener("change",function(e){
+        tono(width, height, rangeTono.value);
+    });*/
+    document.getElementById("rangeTonoRed").addEventListener("click",function(){
+        tono(width, height, true, false, false);
+    });
+    document.getElementById("rangeTonoGreen").addEventListener("click",function(){
+        tono(width, height, false, true, false);
+    });
+    document.getElementById("rangeTonoBlue").addEventListener("click",function(){
+        tono(width, height, false, false, true);
     });
     document.getElementById("btnDownload").addEventListener("click",function(){
         download();

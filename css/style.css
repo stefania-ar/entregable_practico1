@@ -67,6 +67,19 @@ footer{
     height: 53%;
 }
 
+.div_canales_saturation{
+    display: flex;
+    margin: auto;
+}
+
+.div_brightnees_bordes{
+    display: flex;
+    margin: auto;
+    margin-bottom: 2%;
+}
+
+
+
 .btn_filter, .btn_tool, .btn_download, .label_file{
     font-size: 18px;
     padding: 1% 2% ;
@@ -88,9 +101,11 @@ button.btn_tool{
 }
 
 button.btn_filter{
-    width: 30%;
-    height: 15%;
+    width: 25%;
+    height: 10%;
 }
+
+
 
 .input_file{
     opacity: 0;
@@ -127,4 +142,52 @@ label.label_file{
 p.p_title_size_pencil{
     font-size: 15px;
     width: 50%;
+}
+
+.div_tono{
+    margin-left: 5%;
+    width: 40%;
+    height: 20%;
+    text-align: center;
+}
+p.p_tono{
+    width: 94%;
+    height: 30%;
+    margin: auto;
+    border-bottom: 2px rgb(138, 138, 138) solid;
+    margin-bottom: 3%;
+}
+button.btn_tono{
+    margin: 0;
+    font-size: 16px;
+    width: 30%;
+    height: 60%
+}
+
+.div_saturation{
+    background-color:rgb(138, 138, 138);
+    width: 30%;
+    float: right;
+}
+
+.div_brightness{
+    margin: auto;
+    width: 29%;
+    height: 100%;
+}
+
+.p_brightness{
+    width: 90%;
+    margin: auto;
+    border-bottom: 2px rgb(138, 138, 138) solid;
+    margin-bottom: 3%;
+}
+
+button.btn_brightness{
+    width: 41%;
+
+}
+
+.btn_bordes{
+    margin: auto;
 }

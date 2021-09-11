@@ -41,15 +41,36 @@
             </div>
             <div class="div_btn_filters">
                 <p class="p_seccion">filtros</p>
-                <button class="btn_filter" id="btnOrigin">original</button>
-                <button class="btn_filter" id="btnGreyFilter">gris</button>
-                <button class="btn_filter"id="btnSepiaFilter">sepia</button>
-                <button class="btn_filter" id="btnInvertFilter">invertir</button>
-                <button class="btn_filter" id="btnBinarizationFilter">binarizacion</button>
-                <button class="btn_filter" id="btnBlurFilter">blur</button>
-                <button class="btn_filter" id="btnSobelFilter">sobel</button>
-                <p class="p_saturation">Saturacion</p>
-                <input class="input_range" type="range" min="0" max="100" id="range" value="0">
+                <div>
+                    <button class="btn_filter" id="btnOrigin">restaurar</button>
+                    <button class="btn_filter" id="btnGreyFilter">gris</button>
+                    <button class="btn_filter"id="btnSepiaFilter">sepia</button>
+                    <button class="btn_filter" id="btnInvertFilter">invertir</button>
+                    <button class="btn_filter" id="btnBinarizationFilter">binarizacion</button>
+                    <button class="btn_filter" id="btnBlurFilter">blur</button>
+                </div>
+                <div class="div_brightnees_bordes">
+                    <div class="div_brightness">
+                        <p class="p_saturation p_brightness">brillo</p>
+                        <button class="btn_filter btn_brightness" id="btnBrightness++Filter">+</button>
+                        <button class="btn_filter btn_brightness" id="btnBrightness--Filter">-</button>
+                    </div>
+                    <button class="btn_filter btn_bordes" id="btnSobelFilter">bordes</button>
+                </div>
+                <div class="div_canales_saturation">
+                    <div class="div_tono">
+                        <p class="p_saturation p_tono">canales</p>
+                        <button class="btn_filter btn_tono" id="rangeTonoRed">rojo</button>
+                        <button class="btn_filter btn_tono" id="rangeTonoGreen">verde</button>
+                        <button class="btn_filter btn_tono" id="rangeTonoBlue">azul</button>
+                    </div>
+                    <div class="div_saturation">
+                        <p class="p_saturation">Saturacion</p>
+                        <input class="input_range" type="range" min="0" max="100" id="range" value="0">
+                    </div>
+                </div>
+               <!-- <p class="p_saturation">tono</p>
+                <input class="input_range" type="range" min="0" max="360" id="rangeTono" value="0">-->
             </div>
         </div>
     </div>
