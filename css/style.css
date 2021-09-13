@@ -5,7 +5,7 @@
 }
 .content{
     display: grid;
-    grid-template-rows: 1fr 7fr 1fr;
+    grid-template-rows: 72px 7fr 1fr;
 }
 body{
     font-family: Arial, Helvetica, sans-serif;
