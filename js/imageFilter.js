@@ -27,17 +27,6 @@ document.addEventListener("DOMContentLoaded", function () {
         reader.readAsDataURL(file);
     }
 
-    function resetWhite(r, g, b){
-        var canvasData = ctx.getImageData(0, 0, width, height);
-        var data = canvasData.data;
-        for (let i=0; i<data.length; i+=4){
-                data[i] = r;
-                data[i+1]= g;
-                data[i+2]=b;
-        }
-        ctx.putImageData(canvasData, 0, 0);
-    }
-
     function avgSaturation(){
         var canvasData = ctx.getImageData(0, 0, width, height);
         var data = canvasData.data;
@@ -323,7 +312,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function sobel(width, height){
-        //se pasa el canvas a escala de grises para obtener un resultado mas exacto
+        //se pasa el canvas a escala de grises para obtener un resultado más exacto
         grey(width, height);
         var canvasData = ctx.getImageData(0, 0,  width, height);
         var canvasDataCopy = ctx.getImageData(0, 0,  width, height);
@@ -385,8 +374,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function download(){
-        //creo
+        //creo un elemento <a>, me permite descargar el canvas devido asu propio comportamiento.
         let link = document.createElement('a');
+        //especifica que el destino se descargará cuando un usuario haga clic en el hipervínculo.
         link.download = "CanvasImage.jpg";
         //con este if se conprueba que haya una imagen.
         if(image.width > 0 && image.height > 0){
@@ -397,10 +387,13 @@ document.addEventListener("DOMContentLoaded", function () {
             newCanvas.height = height;
             //escalo el canvas creado y le inserto el contenido del canvas original.
             scaleContent(width, height, newCanvas);
+            //especifica la URL de la página a la que va el enlace.
             link.href = newCanvas.toDataURL();
         }else{
+            //especifica la URL de la página a la que va el enlace.
             link.href = canvas.toDataURL();
         }
+        //acciono sobre el link creado para efectuar a descarga.
         link.click();
     }
 
@@ -420,9 +413,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.getElementById("imageFile").addEventListener('change',(e) => {
         if(e.target.files[0] != null){//pregunta si se seleciono alguna imagen
-            //se seta a blanco ya que si cargan una imagen png,
+            //vacia el canvas, ya que si cargan una imagen png,
             //el fondo se sigue viendo la imagen anterior.
-            //resetWhite(255, 255, 255);
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             const file = e.target.files[0];
             readImage(file);
@@ -469,18 +461,10 @@ document.addEventListener("DOMContentLoaded", function () {
         sepia = false;
         sobel(width, height);
     });
-   /*  document.getElementById("btnfiltroSaturar").addEventListener("click",function(){
-        saturar(image, widthImage, heightImage);
-    });*/
     //filtro de saturacion
     range.addEventListener("change",function(){
         saturar(width, height, range.value);
     });
-
-    /*let rangeTono = document.getElementById("rangeTono");
-    rangeTono.addEventListener("change",function(e){
-        tono(width, height, rangeTono.value);
-    });*/
     document.getElementById("rangeTonoRed").addEventListener("click",function(){
         tono(width, height, true, false, false);
     });
