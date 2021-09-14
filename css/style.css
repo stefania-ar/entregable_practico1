@@ -2,6 +2,7 @@
     margin: 0%;
     padding: 0%;
     text-align: center;
+    text-transform: capitalize;
 }
 .content{
     display: grid;
@@ -19,11 +20,6 @@ header{
     color: rgb(255, 255, 255);
 }
 
-.div_father{
-    height: 568px;
-    display: flex;
-}
-
 footer{
     display: flex;
     flex-direction: column;
@@ -33,6 +29,13 @@ footer{
     color: rgb(255, 255, 255);
 }
 
+/* div contenedor del div_canvas y del div_contain_menu(herramientas)*/
+.div_father{
+    height: 568px;
+    display: flex;
+}
+
+/* div contenedor del canvas*/
 .div_canvas{
     width: 60%;
     float: left;
@@ -40,7 +43,7 @@ footer{
     padding-top: 0.5%;
     margin: 0;
 }
-
+/* div contenedor de todos los divs de botones*/
 .div_contain_menu{
     display: block;
     width: 40%;
@@ -49,43 +52,30 @@ footer{
     padding: 0;
     margin: 0;
 }
-
+/*div contenedor de boton subir imagen y descargar imagen*/
 .div_file_up_download{
     display: flex;
     height: 15%;
 }
-
+/*style común entre boton subir imagen y descargar imagen*/
 .div_up_download{
     width: 50%;
     display: block;
     text-align: center;
     margin: 2%;
 }
-
+/*div contenedor de divs de herramientas para pintar(lapig, goma, etc)*/
 .div_btn_painting_elements{
     display: block;
-    height: 32%;
+    height: 27%;
 }
-
+/*div contenedor de divs de botones de aplicación de filtros*/
 .div_btn_filters{
     display: block;
-    height: 53%;
+    height: 58%;
 }
 
-.div_canales_saturation{
-    display: flex;
-    margin: auto;
-    justify-content: space-around;
-}
-
-.div_brightnees_bordes{
-    display: flex;
-    margin: auto;
-    margin-bottom: 2%;
-}
-
-
-
+/*Style común entre botones*/
 .btn_filter, .btn_tool, .btn_download, .label_file{
     font-size: 18px;
     padding: 1% 2% ;
@@ -96,40 +86,34 @@ footer{
     background-color: rgb(134, 134, 134);
 }
 
-button.btn_download{
+.btn_download{
     width: 30%;
     height: 45%;
 }
 
-button.btn_tool{
+.btn_tool{
     width: 15%;
     height: 20%;
 }
 
-button.btn_filter{
+.btn_filter{
     width: 25%;
     height: 10%;
 }
 
-
-
+/*input para subir una imagen*/
 .input_file{
     opacity: 0;
     overflow: hidden;
     position: absolute;
     z-index: -1;
 }
-
+/*label del input para subir una imagen*/
 label.label_file{
     width: 30%;
     height: 40%;
 }
-
-.p_saturation{
-    color: rgb(231, 230, 230);
-
-}
-
+/*titulo de la seción(herramientas de dibujo, filtros)*/
 .p_seccion{
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     color: rgb(170, 169, 169);
@@ -137,63 +121,76 @@ label.label_file{
     margin: auto;
     margin-bottom: 2%;
     border-bottom: 2px rgb(138, 138, 138) solid;
-    width: 80%;
+    width: 85%;
 }
-
-.min{
+/*clase adicional de p.secion*/
+.p_min{
     margin-bottom: 2%;
     font-size: 15px;
 }
-
-p.p_title_size_pencil{
-    font-size: 15px;
-    width: 50%;
-}
-
-.div_tono{
-    margin-left: 5%;
-    width: 40%;
-    height: 20%;
-    text-align: center;
-}
-p.p_tono{
-    width: 94%;
-    height: 30%;
-    margin: auto;
-    border-bottom: 2px rgb(138, 138, 138) solid;
-    margin-bottom: 3%;
-}
-button.btn_tono{
-    margin: 0;
-    font-size: 16px;
+/*clase adicional de p.min*/
+.p_short{
     width: 30%;
-    height: 60%
+}
+/*clase adicional de p.short*/
+p.p_brightness_channels{
+    margin: 0%;
+    width: auto;
 }
 
-.div_saturation{
-    background-color:rgb(138, 138, 138);
-    width: 30%;
-    float: right;
+.p_saturation{
+    width: 100%;
+    margin-left: 25%;
+    margin-bottom: 7%;
 }
 
+/*div contenedor de botones de brillo y canales*/
+.div_brightnees_channels{
+    display: flex;
+    /*align-items: center;*/
+    justify-content: center;
+}
+
+/*div contenedor de div contenedor de titulo y boton de brillo*/
 .div_brightness{
-    margin: auto;
-    width: 29%;
-    height: 100%;
+    width: 25%;
+    margin-right: 4%;
 }
 
-.p_brightness{
-    width: 90%;
-    margin: auto;
-    border-bottom: 2px rgb(138, 138, 138) solid;
-    margin-bottom: 3%;
+/*div contenedor de titulo y boton de satiración*/
+.div_saturation{
+    width: 30%;
+    margin-right: 10%;
 }
 
-button.btn_brightness{
-    width: 41%;
-
+/*div contenedor del input range*/
+.div_range{
+    width: 30%;
+    margin: auto auto auto 38%;
+}
+/**navegadores de tipo webkit ( Google Chrome, Opera, etc)
+*"thumb" ( el botón o el control de la barra de desplazamiento )*/
+.input_range, .input_range::-webkit-slider-thumb {
+    /*desactivo la apariencia que le da el navegador al imput*/
+    -webkit-appearance: none;
+    display: block;
+}
+/*nueva apariencia del botón de la barra de desplazamiento*/
+.input_range::-webkit-slider-thumb {
+    background-color: #777;
+    width: 15px;
+    height: 15px;
+    border: 2px solid #333;
+    border-radius: 50%;
+    margin-top: -5px;
+}
+/*"track" o la barra de desplazamiento */
+/*nueva apariencia de la la barra de desplazamiento*/
+.input_range::-webkit-slider-runnable-track {
+    background-color: rgb(163, 163, 163);
+    height: 3px;
 }
 
-.btn_bordes{
-    margin: auto;
+button:hover{
+    background-color:rgb(184, 183, 183);
 }

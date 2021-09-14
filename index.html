@@ -13,68 +13,63 @@
 </head>
 
 <body>
-    <div class="content">
-        <header>
-            <h1 class="header_h1">editor gráfico</h1>
-        </header>
-        <div class="div_father">
-            <div class="div_canvas">
-                <canvas class="canvas" id="draw" width="800" height="550"></canvas>
+    <header>
+        <h1 class="header_h1">editor gráfico</h1>
+    </header>
+    <div class="div_father">
+        <div class="div_canvas">
+            <canvas class="canvas" id="draw" width="800" height="550"></canvas>
+        </div>
+        <div class="div_contain_menu">
+            <div class="div_file_up_download">
+                <div class="div_up_download">
+                    <p class="p_seccion p_min">subir imagen</p>
+                    <label class="fa fa-upload label_file" for="imageFile"></label><br>
+                    <input class="input_file" id="imageFile" type="file" name="adjunto" accept=".jpg,.jpeg,.png" multiple />
+                </div>
+                <div class="div_up_download">
+                    <p class="p_seccion p_min">descarga lienzo</p>
+                    <button id="btnDownload" class="fa fa-download btn_download"></button>
+                </div>
             </div>
-            <div class="div_contain_menu">
-                <div class="div_file_up_download">
-                    <div class="div_up_download">
-                        <p class="p_seccion min">subir imagen</p>
-                        <label class="fa fa-upload label_file" for="imageFile"></label><br>
-                        <input class="input_file" id="imageFile" type="file" name="adjunto" accept=".jpg,.jpeg,.png"
-                            multiple />
-                    </div>
-                    <div class="div_up_download">
-                        <p class="p_seccion min">descarga lienzo</p>
-                        <button id="btnDownload" class="fa fa-download btn_download"></button>
-                    </div>
+            <div class="div_btn_painting_elements">
+                <p class="p_seccion">herramientas de dibujo</p>
+                <button  class="fas fa-paint-brush btn_tool" id="brush"></button>
+                <input  type="color" id="color">
+                <button  class="fa fa-eraser btn_tool" id="eraser"></button>
+                <button  class="fa fa-broom btn_tool" id="cleaner"></button>
+                <p class="p_seccion p_min p_short">tamaño de lapiz</p>
+                <div class="div_range">
+                    <input class="input_range" type="range" min="4" max="30" id="range_sice_pencil" value="4">
                 </div>
-                <div class="div_btn_painting_elements">
-                    <p class="p_seccion">herramientas de dibujo</p>
-                    <button class="fas fa-paint-brush btn_tool" id="brush"></button>
-                    <input type="color" id="color">
-                    <button class="fa fa-eraser btn_tool" id="eraser"></button>
-                    <button class="fa fa-broom btn_tool" id="cleaner"></button>
-                    <p class="p_seccion p_title_size_pencil">tamaño de lapiz</p>
-                    <input type="range" min="4" max="30" id="range_sice_pencil" value="4">
+            </div>
+            <div class="div_btn_filters">
+                <p class="p_seccion">filtros</p>
+                <div>
+                    <button class="btn_filter" id="btnOrigin">restaurar</button>
                 </div>
-                <div class="div_btn_filters">
-                    <p class="p_seccion">filtros</p>
-                    <div>
-                        <button class="btn_filter" id="btnOrigin">restaurar</button>
-                        <button class="btn_filter" id="btnGreyFilter">gris</button>
-                        <button class="btn_filter" id="btnSepiaFilter">sepia</button>
-                        <button class="btn_filter" id="btnInvertFilter">invertir</button>
-                        <button class="btn_filter" id="btnBinarizationFilter">binarizacion</button>
-                        <button class="btn_filter" id="btnBlurFilter">blur</button>
-                    </div>
-                    <div class="div_brightnees_bordes">
-                        <div class="div_brightness">
-                            <p class="p_saturation p_brightness">brillo</p>
-                            <button class="btn_filter btn_brightness" id="btnBrightness++Filter">+</button>
-                            <button class="btn_filter btn_brightness" id="btnBrightness--Filter">-</button>
-                        </div>
-                        <button class="btn_filter btn_bordes" id="btnSobelFilter">bordes</button>
-                    </div>
-                    <div class="div_canales_saturation">
-                        <div class="div_tono">
-                            <p class="p_saturation p_tono">canales</p>
-                            <button class="btn_filter btn_tono" id="rangeTonoRed">rojo</button>
-                            <button class="btn_filter btn_tono" id="rangeTonoGreen">verde</button>
-                            <button class="btn_filter btn_tono" id="rangeTonoBlue">azul</button>
-                        </div>
-                        <div class="div_saturation">
-                            <p class="p_saturation">Saturacion</p>
-                            <input class="input_range" type="range" min="0" max="100" id="range" value="0">
+                <div>
+                    <button class="btn_filter" id="btnGreyFilter">gris</button>
+                    <button class="btn_filter"id="btnSepiaFilter">sepia</button>
+                    <button class="btn_filter" id="btnInvertFilter">invertir</button>
+                    <button class="btn_filter" id="btnBinarizationFilter">binario</button>
+                    <button class="btn_filter" id="btnBlurFilter">blur</button>
+                    <button class="btn_filter" id="btnSobelFilter">bordes</button>
+                </div>
+                <div class="div_brightnees_channels">
+                    <div class="div_brightness">
+                        <div>
+                            <p class="p_seccion p_min p_brightness_channels">brillo</p>
+                            <button class="btn_filter btn_brightnees_channels" id="btnBrightness++Filter">+</button>
+                            <button class="btn_filter btn_brightnees_channels" id="btnBrightness--Filter">-</button>
                         </div>
                     </div>
-                    <!-- <p class="p_saturation">tono</p>
-                <input class="input_range" type="range" min="0" max="360" id="rangeTono" value="0">-->
+                    <div class="div_saturation">
+                       <p class="p_seccion p_min p_short p_saturation">saturación</p>
+                        <div class="div_range">
+                            <input class="input_range" id="range" type="range" min="2" max="100"  value="0">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
