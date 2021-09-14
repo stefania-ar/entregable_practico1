@@ -113,6 +113,9 @@ label.label_file{
     width: 30%;
     height: 40%;
 }
+.label_file:hover{
+    background-color:rgb(184, 183, 183);
+}
 /*titulo de la seción(herramientas de dibujo, filtros)*/
 .p_seccion{
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
