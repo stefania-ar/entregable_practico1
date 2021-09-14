@@ -13,17 +13,15 @@ body{
 }
 
 header{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    height: 10%;
+    padding: 1%;
     background-color: rgb(56, 56, 56);
     color: rgb(255, 255, 255);
 }
 
 footer{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
+    height: 10%;
+    padding: 1%;
     background-color: rgb(56, 56, 56);
     text-align: center;
     color: rgb(255, 255, 255);
@@ -31,7 +29,7 @@ footer{
 
 /* div contenedor del div_canvas y del div_contain_menu(herramientas)*/
 .div_father{
-    height: 568px;
+    height: 566px;
     display: flex;
 }
 
@@ -63,11 +61,13 @@ footer{
     display: block;
     text-align: center;
     margin: 2%;
+    margin-top: 6%;
 }
 /*div contenedor de divs de herramientas para pintar(lapig, goma, etc)*/
 .div_btn_painting_elements{
     display: block;
     height: 27%;
+    margin-top: 6%;
 }
 /*div contenedor de divs de botones de aplicación de filtros*/
 .div_btn_filters{
