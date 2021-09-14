@@ -133,6 +133,12 @@ p.p_brightness_channels{
     width: auto;
 }
 
+.p_saturation{
+    width: 100%;
+    margin-left: 25%;
+    margin-bottom: 7%;
+}
+
 /*div contenedor de botones de brillo y canales*/
 .div_brightnees_channels{
     display: flex;
@@ -146,14 +152,10 @@ p.p_brightness_channels{
     margin-right: 4%;
 }
 
-/*div contenedor de div contenedor de titulo y botones de canales*/
-.div_channels{
-    width: 55%;
-}
-
 /*div contenedor de titulo y boton de satiración*/
 .div_saturation{
-    margin-top: 1%;
+    width: 30%;
+    margin-right: 10%;
 }
 
 /*div contenedor del input range*/
@@ -182,4 +184,8 @@ p.p_brightness_channels{
 .input_range::-webkit-slider-runnable-track {
     background-color: rgb(163, 163, 163);
     height: 3px;
+}
+
+button:hover{
+    background-color:rgb(184, 183, 183);
 }
