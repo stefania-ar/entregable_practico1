@@ -61,18 +61,18 @@ footer{
     display: block;
     text-align: center;
     margin: 2%;
-    margin-top: 6%;
 }
 /*div contenedor de divs de herramientas para pintar(lapig, goma, etc)*/
 .div_btn_painting_elements{
     display: block;
     height: 27%;
-    margin-top: 6%;
+    margin-top: 4%;
 }
 /*div contenedor de divs de botones de aplicación de filtros*/
 .div_btn_filters{
     display: block;
     height: 58%;
+    margin-top: 4%;
 }
 
 /*Style común entre botones*/
